@@ -49,7 +49,7 @@ Parameters that pass through to `process-image`:
     {{ range $default }}
       {{ $d := trim . " " }}
       {{ if or (hasPrefix $d "/") (hasPrefix $d "http") }}
-        {{ $src =  $d }}
+        {{ $src = $d }}
         {{ break }}
       {{ else }}
         {{ $p := strings.TrimPrefix "./" $d }}
