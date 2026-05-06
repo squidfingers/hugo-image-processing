@@ -1,2 +1,2 @@
 title: Hugo Image Processing
-disableKinds: ["taxonomy", "term", "RSS", "sitemap", "robotsTXT"]
+disableKinds: ["taxonomy", "term", "rss", "sitemap", "robotstxt"]

@@ -13,7 +13,7 @@ Parameters that pass through to `process-image`:
 @param {string} [process]
 @param {bool} [upscale]
 
-@returns image `src`
+@returns {dict}
 
 @example
 {{ partial "utils/get-image.html" (dict
@@ -81,4 +81,5 @@ Parameters that pass through to `process-image`:
   {{ end }}
 {{ end }}
 
-{{ return $src }}
+{{ $alt := (index (split (path.BaseName $src) "_hu_") 0) | humanize }}
+{{ return (dict "src" $src "alt" $alt) }}
