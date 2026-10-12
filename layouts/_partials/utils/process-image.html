@@ -49,28 +49,26 @@ not have any effect for these two processes.
 {{ $p := "" }}
 
 {{ with $res }}
-  {{ if eq .ResourceType "image" }}
-    {{ if not (eq .MediaType.SubType "svg") }}
-      {{ if and $width $height }}
-        {{ if or (eq $upscale true) (gt .Width $width) (gt .Height $height) }}
-          {{ $p = printf "%s %dx%d" $process $width $height }}
-        {{ end }}
-      {{ else if $width }}
-        {{ if or (eq $upscale true) (gt .Width $width) }}
-          {{ $p = printf "%s %dx" $process $width }}
-        {{ end }}
-      {{ else if $height }}
-        {{ if or (eq $upscale true) (gt .Height $height) }}
-          {{ $p = printf "%s x%d" $process $height }}
-        {{ end }}
-      {{ else }}
-        {{ $p := $process }}
-      {{ end }}
-      {{ if $p }}
-        {{ $res = .Process $p }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
+  {{ if reflect.IsImageResourceProcessable $res }}
+		{{ if and $width $height }}
+			{{ if or (eq $upscale true) (gt .Width $width) (gt .Height $height) }}
+				{{ $p = printf "%s %dx%d" $process $width $height }}
+			{{ end }}
+		{{ else if $width }}
+			{{ if or (eq $upscale true) (gt .Width $width) }}
+				{{ $p = printf "%s %dx" $process $width }}
+			{{ end }}
+		{{ else if $height }}
+			{{ if or (eq $upscale true) (gt .Height $height) }}
+				{{ $p = printf "%s x%d" $process $height }}
+			{{ end }}
+		{{ else }}
+			{{ $p := $process }}
+		{{ end }}
+		{{ if $p }}
+			{{ $res = .Process $p }}
+		{{ end }}
+	{{ end }}
 {{ end }}
 
 {{ return $res }}
