@@ -50,25 +50,25 @@ not have any effect for these two processes.
 
 {{ with $res }}
   {{ if reflect.IsImageResourceProcessable $res }}
-		{{ if and $width $height }}
-			{{ if or (eq $upscale true) (gt .Width $width) (gt .Height $height) }}
-				{{ $p = printf "%s %dx%d" $process $width $height }}
-			{{ end }}
-		{{ else if $width }}
-			{{ if or (eq $upscale true) (gt .Width $width) }}
-				{{ $p = printf "%s %dx" $process $width }}
-			{{ end }}
-		{{ else if $height }}
-			{{ if or (eq $upscale true) (gt .Height $height) }}
-				{{ $p = printf "%s x%d" $process $height }}
-			{{ end }}
-		{{ else }}
-			{{ $p := $process }}
-		{{ end }}
-		{{ if $p }}
-			{{ $res = .Process $p }}
-		{{ end }}
-	{{ end }}
+    {{ if and $width $height }}
+      {{ if or (eq $upscale true) (gt .Width $width) (gt .Height $height) }}
+        {{ $p = printf "%s %dx%d" $process $width $height }}
+      {{ end }}
+    {{ else if $width }}
+      {{ if or (eq $upscale true) (gt .Width $width) }}
+        {{ $p = printf "%s %dx" $process $width }}
+      {{ end }}
+    {{ else if $height }}
+      {{ if or (eq $upscale true) (gt .Height $height) }}
+        {{ $p = printf "%s x%d" $process $height }}
+      {{ end }}
+    {{ else }}
+      {{ $p := $process }}
+    {{ end }}
+    {{ if $p }}
+      {{ $res = .Process $p }}
+    {{ end }}
+  {{ end }}
 {{ end }}
 
 {{ return $res }}
